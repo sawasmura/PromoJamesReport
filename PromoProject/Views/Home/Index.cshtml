@@ -1,0 +1,47 @@
+﻿@using Model.DAO
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    String[] metaList = {"/style","/travel","/vehicle","/mindset","/event"};
+    var cateDao = new CategoryDao();
+    List<Model.EF.Category> nameCate = cateDao.ListAll().ToList();
+    var newsDao = new NewsDao();
+}
+<div class="container">
+    <div class="portfolio-items">
+        @for (int i = 0; i < nameCate.Count;i++ )
+        {
+            int num = i+1;
+            var url1 = "/chu-de/"+num;
+            var listResult = newsDao.ListNewsByType(i+1);
+            <div class="section-title">
+                    <h2>@nameCate[nameCate.Count - i - 1].Name</h2>
+                    <p class="spec"><a href="@url1" class="rm">Read more &raquo;</a></p>
+                </div>
+                <div class="section-group">
+
+                    @foreach (var item in listResult)
+                    {
+                        var url = "/chi-tiet" + @metaList[@item.CategoryID - 1] + "-" + @item.Id;
+                        <div class="col-sm-6 col-md-4 lorem">
+                            <div class="portfolio-item">
+                                <div class="hover-bg">
+                                    <a href="@url" title="@item.Name" data-lightbox-gallery="gallery1">
+                                        <div class="hover-text">
+                                            <div class="overlay-caption">
+                                                <div class="overlay-content">
+                                                    <h4>@item.Detail</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="@item.Images" class="img-responsive" alt="@item.Name">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+        }
+    </div>
+</div>
+

@@ -1,0 +1,32 @@
+﻿@using Model.DAO
+@model Model.EF.Category
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var result = new List<Model.EF.News>();
+    var newsDao = new NewsDao();
+    String[] metaList = {"/style","/travel","/vehicle","/mindset","/event"};
+    
+    result = newsDao.ListNewsByType(Model.Id);
+
+}
+<div class="mainbar">
+    @foreach (var item in result)
+    {
+        var url = "/chi-tiet" + @metaList[Model.Id-1] + "-" + @item.Id;
+        <div class="article">
+            <h2>@item.Name</h2>
+            <p class="infopost">Posted on <span class="date">@item.Date</span> by <a href="#">Admin</a> &nbsp;&nbsp;|&nbsp;&nbsp; Filed under <a href="#">templates</a>, <a href="#">internet</a> <a href="#" class="com"><span>11</span></a></p>
+            <div class="clr"></div>
+            <div class="img">
+                <img src="@item.Images" width="400" height="300" alt="" class="fl" />
+                <div class="post_content">
+                    <p>@Html.Raw(item.Detail)</p>
+                </div>
+                <p class="spec"><a href="@url" class="rm">Read more &raquo;</a></p>
+            </div>
+            <div class="clr"></div>
+        </div>
+    }
+    <p class="pages"><small>Page 1 of 2</small> <span>1</span> <a href="#">2</a> <a href="#">&raquo;</a></p>
+</div>

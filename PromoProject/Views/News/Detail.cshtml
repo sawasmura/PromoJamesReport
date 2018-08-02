@@ -1,0 +1,28 @@
+﻿@model Model.EF.News
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var category = (Model.EF.Category) ViewBag.Category;
+    var message = @Model.Content;
+    var result = message.Replace("<p>", "<br>");
+    result = result.Replace("</p>", "<br>");
+    
+}
+<div class="container">
+    
+    <div class="row">
+
+        <div class="text-center">
+            <h2>@Model.Name</h2>
+            <div class="centered">
+                <img src="@Model.Images" class="img-responsive" alt="@Model.Name">
+            </div>
+            @Html.Raw(result);         
+        </div>
+       
+        <hr>
+
+    </div>
+</div>
+
+

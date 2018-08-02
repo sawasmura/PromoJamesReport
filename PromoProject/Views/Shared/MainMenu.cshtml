@@ -1,0 +1,16 @@
+﻿@model List<Model.EF.Menu>
+<div class="categories">
+    <ul>
+        <ol class="type">
+            <li><a href="/"><span>Home</span></a></li>
+            @foreach (var item in Model)
+            {
+                var url = "/chu-de/" + @item.Id;
+                <li><a href="@url"><span>@item.Name</span></a></li>
+
+            }
+            <div class="clear"></div>
+        </ol>
+    </ul>
+</div>
+    
